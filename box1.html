@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  padding: 15px;
+  margin-left: 300px;
+  -moz-user-select:none
+}
+.column-r {
+  float: right;
+  padding: 15px;
+  margin-right: 200px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.menu {
+  width: 25%;
+}
+
+.content {
+  width: 75%;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 8px;  
+}
+.lb{
+  width:135px; 
+  height:135px; 
+}
+.rb{
+ width:150px; 
+  height:150px;
+}
+.menu li.lr{
+  border:solid black 1px;
+}
+#b1{
+background-color: #ff0000;
+}
+#b2{
+background-color: #008000;
+}
+#b3{
+background-color:yellow;
+}
+
+ /*  .btn {
+  width: 100px;
+ background-color: blue;
+}*/
+
+</style>
+
+</head>
+<body>
+
+
+<div class="clearfix">
+  <div class="column menu">
+    <ul>
+      <li id="b1" class="lb" draggable="true" ondragstart="return dragStart(event)">One</li>
+      <li id="b2" class="lb" draggable="true" ondragstart="return dragStart(event)">Two</li>
+      <li id="b3" class="lb" draggable="true" ondragstart="return dragStart(event)">Three</li>
+    </ul>
+  </div>
+  
+  <div class="column-r menu">
+    <ul>
+      <li class="lr rb" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)"></li>
+      <li class="lr rb" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)"></li>
+      <li class="lr rb" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)"></li>
+    </ul>
+  </div>
+ </div>
+   <center>
+ <button id="genNew">Random Button</button>
+ </center>
+ 
+  <script type="text/javascript">
+
+ const bg = document.getElementById("b1");
+  const bg2 = document.getElementById("b2");
+   const bg3 = document.getElementById("b3");
+const setBg = () => {
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  bg.style.backgroundColor = "#" + randomColor;
+  bg.style.color.innerHTML = "#" + randomColor;
+}
+const setBg2 = () => {
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  bg2.style.backgroundColor = "#" + randomColor;
+  bg2.style.color.innerHTML = "#" + randomColor;
+}
+
+const setBg3 = () => {
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  bg3.style.backgroundColor = "#" + randomColor;
+  bg3.style.color.innerHTML = "#" + randomColor;
+}
+
+genNew.addEventListener("click", setBg);
+genNew.addEventListener("click", setBg2);
+genNew.addEventListener("click", setBg3);
+setBg();
+setBg2();
+setBg3();
+
+
+         function dragStart(ev) {
+            ev.dataTransfer.effectAllowed='move';
+            ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+            ev.dataTransfer.setDragImage(ev.target,0,0);
+            return true;
+         }
+         function dragEnter(ev) {
+            event.preventDefault();
+            return true;
+         }
+         function dragOver(ev) {
+            return false;
+         }
+         function dragDrop(ev) {
+            var src = ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(src));
+            ev.stopPropagation();
+            return false;
+         }
+      </script>
+</body>
+</html>
+
+
